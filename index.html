@@ -41,10 +41,10 @@
     </div>
     
     <div class="form-group">
-      <label><i class="fas fa-camera"></i> Upload Student Photo</label>
+      <label><i class="fas fa-camera"></i> Upload Photo</label>
       <div class="file-upload">
         <label class="file-upload-label">
-          <i class="fas fa-cloud-upload-alt"></i> Choose an image
+          <i class="fas fa-cloud-upload-alt"></i> Select or Drop
           <input type="file" id="imageUpload" accept="image/*">
         </label>
       </div>
@@ -110,26 +110,15 @@
       reader.readAsDataURL(file);
     });
 
-    // function updatePreview() {
-    //   previewText.innerHTML = `
-    //     <div>Student Information</div>
-    //     <div>الكود: ${codeInput.value || 'N/A'}</div>
-    //     <div>الاسم: ${nameInput.value || 'Not found'}</div>
-    //     <div>الصف: ${classInput.value || 'Not provided'}</div>
-    //     <div>التقدير: ${sectionInput.value || 'Not provided'}</div>
-    //   `;
-    // }
-
     function updatePreview() {
       previewText.innerHTML = `
         <div>Student Information</div>
-        <div class="row"><span class="label">الكود: </span><span class="value">${codeInput.value || 'N/A'}</span></div>
-        <div class="row"><span class="label">الاسم: </span><span class="value">${nameInput.value || 'Not found'}</span></div>
-        <div class="row"><span class="label">الصف: </span><span class="value">${classInput.value || 'Not provided'}</span></div>
-        <div class="row"><span class="label">التقدير: </span><span class="value">${sectionInput.value || 'Not provided'}</span></div>
+        <div>الكود: <span class="val" id="previewCode">${codeInput.value || 'N/A'}</span></div>
+        <div>الاسم: <span class="val" id="previewName">${nameInput.value || 'Not found'}</span></div>
+        <div>الصف: <span class="val" id="previewClass">${classInput.value || 'Not provided'}</span></div>
+        <div>التقدير: <span class="val" id="previewSection">${sectionInput.value || 'Not provided'}</span></div>
       `;
     }
-
 
     function refreshForm() {
       codeInput.value = '';
@@ -137,8 +126,13 @@
       classInput.value = '';
       sectionInput.value = '';
       imageInput.value = '';
-      previewText.innerHTML = '';
       previewImage.src = './assets/placeholder.svg';
+
+      // Clear values only, preserve labels
+      document.getElementById('previewCode').textContent = 'N/A';
+      document.getElementById('previewName').textContent = 'Not found';
+      document.getElementById('previewClass').textContent = 'Not provided';
+      document.getElementById('previewSection').textContent = 'Not provided';
     }
 
     function setOrientation(orientation) {
