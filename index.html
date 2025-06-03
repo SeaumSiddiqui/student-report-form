@@ -10,7 +10,7 @@
 <body class="portrait">
 
   <div class="form-section">
-    <h2><i class="fas fa-user-graduate"></i> Student Details</h2>
+    <h2><i class="fas fa-user-graduate"></i>Details</h2>
     
     <div class="form-group">
       <label for="code"><i class="fas fa-id-card"></i> Student Code</label>
@@ -19,7 +19,7 @@
     
     <div class="form-group">
       <label for="name"><i class="fas fa-signature"></i> Student Name</label>
-      <input type="text" id="name" readonly placeholder="Name will appear automatically">
+      <input type="text" id="name" readonly placeholder="Will appear here">
     </div>
     
     <div class="form-group">
@@ -29,7 +29,15 @@
     
     <div class="form-group">
       <label for="section"><i class="fas fa-users"></i> Section</label>
-      <input type="text" id="section" placeholder="Enter section">
+      <select type="text" id="section" placeholder="Enter section">
+        <option value="">Calculating...</option>
+        <option value="ممتاز">ممتاز</option>
+        <option value="جيد جدا">جيد جدأ</option>
+        <option value="جيد">جيد</option>
+        <option value="متوسط">متوسط</option>
+        <option value="مقبول">مقبول</option>
+        <option value="ضعيف">ضعيف</option>
+      </select>
     </div>
     
     <div class="form-group">
@@ -102,15 +110,26 @@
       reader.readAsDataURL(file);
     });
 
+    // function updatePreview() {
+    //   previewText.innerHTML = `
+    //     <div>Student Information</div>
+    //     <div>الكود: ${codeInput.value || 'N/A'}</div>
+    //     <div>الاسم: ${nameInput.value || 'Not found'}</div>
+    //     <div>الصف: ${classInput.value || 'Not provided'}</div>
+    //     <div>التقدير: ${sectionInput.value || 'Not provided'}</div>
+    //   `;
+    // }
+
     function updatePreview() {
       previewText.innerHTML = `
         <div>Student Information</div>
-        <div>Code: ${codeInput.value || 'N/A'}</div>
-        <div>Name: ${nameInput.value || 'Not found'}</div>
-        <div>Class: ${classInput.value || 'Not provided'}</div>
-        <div>Section: ${sectionInput.value || 'Not provided'}</div>
+        <div class="row"><span class="label">الكود: </span><span class="value">${codeInput.value || 'N/A'}</span></div>
+        <div class="row"><span class="label">الاسم: </span><span class="value">${nameInput.value || 'Not found'}</span></div>
+        <div class="row"><span class="label">الصف: </span><span class="value">${classInput.value || 'Not provided'}</span></div>
+        <div class="row"><span class="label">التقدير: </span><span class="value">${sectionInput.value || 'Not provided'}</span></div>
       `;
     }
+
 
     function refreshForm() {
       codeInput.value = '';
