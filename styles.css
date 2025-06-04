@@ -151,19 +151,6 @@
       border: 10px solid #00000010;
     }
 
-    /* Preview div - changes with orientation */
-    /* #preview {
-      background: white;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 30px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-      background-image: linear-gradient(to bottom, #ffffff, #f9f9f9);
-      transition: all 0.3s ease;
-    } */
-
     /* Default reset for preview */
     #preview {
       background-repeat: no-repeat;
@@ -228,13 +215,6 @@
     .val{
       color: #4315fb;
     }
-
-    /* .preview-info div:first-child {
-      font-size: 25px;
-      margin-bottom: 10px;
-      color:#1b2552;
-      font-weight: 600;
-    } */
 
     #preview img {
       padding: 20px;
