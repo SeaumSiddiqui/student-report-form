@@ -152,7 +152,7 @@
     }
 
     /* Preview div - changes with orientation */
-    #preview {
+    /* #preview {
       background: white;
       border: 1px solid #e2e8f0;
       border-radius: 8px;
@@ -162,6 +162,27 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
       background-image: linear-gradient(to bottom, #ffffff, #f9f9f9);
       transition: all 0.3s ease;
+    } */
+
+    /* Default reset for preview */
+    #preview {
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      /* padding: 20px; */
+      border-radius: 10px;
+      position: relative;
+      min-height: 300px; /* Adjust based on your design */
+    }
+
+    /* Portrait orientation background */
+    body.portrait #preview {
+      background-image: url('./assets/frame-pr.png');
+    }
+
+    /* Landscape orientation background */
+    body.landscape #preview {
+      background-image: url('./assets/frame-ld.png');
     }
 
     .portrait #preview {
@@ -190,9 +211,10 @@
 
     .preview-info {
       position: absolute;
+      padding: 20px;
       top: 65px;
       right: 65px; /* Changed from left: 65px */
-      font-size: 18px;
+      font-size: 20px;
       line-height: 1.8;
       color: #2a2a2a;
       direction: rtl; /* Ensures Arabic text flows correctly */
@@ -203,14 +225,19 @@
       font-weight: 500;
     }
 
-    .preview-info div:first-child {
+    .val{
+      color: #4315fb;
+    }
+
+    /* .preview-info div:first-child {
       font-size: 25px;
       margin-bottom: 10px;
       color:#1b2552;
       font-weight: 600;
-    }
+    } */
 
     #preview img {
+      padding: 20px;
       /* max-width: 88%; */
       /* max-height: 60%; */
       position: relative;
