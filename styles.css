@@ -151,91 +151,123 @@
       border: 10px solid #00000010;
     }
 
-    /* Default reset for preview */
-    #preview {
-      background-repeat: no-repeat;
-      background-size: contain;
-      background-position: center;
-      /* padding: 20px; */
-      border-radius: 10px;
-      position: relative;
-      min-height: 300px; /* Adjust based on your design */
-    }
+    /* Preview div - changes with orientation */
 
-    /* Portrait orientation background */
-    body.portrait #preview {
+.portrait #preview {
+  width: 794px;
+  height: 1123px;
+}
+
+/* Landscape Preview Container */
+.landscape #preview {
+  width: 1123px;
+  height: 794px;
+  padding: 20px; /* You can adjust this */
+}
+
+.val {
+  color: #2708ec;
+}
+
+.preview-info div {
+  font-weight: 500;
+}
+
+/* Shared Preview Container Base */
+#preview {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  background-image: linear-gradient(to bottom, #ffffff, #f9f9f9);
+  transition: all 0.3s ease;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+/* Info Text at Top */
+.preview-info {
+  font-size: 20px;
+  line-height: 1.8;
+  color: #2a2a2a;
+  direction: rtl;
+  text-align: right;
+  max-width: 100%;
+  padding-inline: 20px;
+}
+
+/* Portrait Image Container */
+.portrait .preview-image {
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 3 / 4; /* 3:4 = portrait */
+  position: relative;
+  background: url('/frame-portrait.png') center center no-repeat;
+  background-size: contain;
+  padding: 20px;
+  margin: auto;
+}
+
+/* Landscape Image Container */
+.landscape .preview-image {
+  width: 100%;
+  max-width: 700px;   /* Slightly smaller than full width */
+  aspect-ratio: 4 / 3;
+  padding: 18px;       /* Inner padding to not overflow */
+  margin: auto;
+  background: url('/frame-landscape.png') center center no-repeat;
+  background-size: contain;
+  position: relative;
+}
+
+/* Image inside the frame */
+.preview-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;  /* or 'cover' if you prefer full-fill */
+  object-position: top center;
+  vertical-align: top;
+  border-radius: 15px;
+  z-index: 1;
+}
+
+/* Frame overlay */
+.preview-image .frame-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+  pointer-events: none;
+  z-index: 2;
+}
+
+    /* Different overlay frames for each */
+    .portrait .preview-image .frame-overlay {
       background-image: url('./assets/frame-pr.png');
     }
 
-    /* Landscape orientation background */
-    body.landscape #preview {
+    .landscape .preview-image .frame-overlay {
       background-image: url('./assets/frame-ld.png');
     }
 
-    .portrait #preview {
-      width: 794px;
-      height: 1123px;
-    }
-
-    .landscape #preview {
-      width: 1123px;
-      height: 794px;
-    }
-
-    .portrait #preview img{
-      margin-top: 18em;
-      max-width: 90%;
-      max-height: 70%;
-      height: auto;
-    }
-
-    .landscape #preview img{
-      margin-top: 15em;
-      max-width: 80%;
-      max-height: 65%;
-      height: auto;
-    }
-
-    .preview-info {
-      position: absolute;
-      top: 63px;
-      right: 63px; /* Changed from left: 65px */
-      font-size: 20px;
-      line-height: 1.8;
-      color: #2a2a2a;
-      direction: rtl; /* Ensures Arabic text flows correctly */
-      text-align: right; /* Aligns text to the right edge */
-    }
-
-    .preview-info div {
-      font-weight: 500;
-    }
-
-    .val{
-      color: #4315fb;
-    }
-
-    #preview img {
-      padding: 20px;
-      /* max-width: 88%; */
-      /* max-height: 60%; */
-      position: relative;
-      /* bottom: 40px; */
-      left: 50%;
-      transform: translateX(-50%);
-      border: none;
-      border-radius: 5px;
-      object-fit: contain;
-    }
-
-    .watermark {
+    /* .watermark {
       position: absolute;
       bottom: 20px;
       right: 20px;
       font-size: 14px;
       color: rgba(43, 45, 66, 0.2);
       font-style: italic;
-    }
+    } */
 
     /* File upload styling */
     .file-upload {
