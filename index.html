@@ -43,12 +43,12 @@
       <label for="section"><i class="fas fa-users"></i> Section</label>
       <select type="text" id="section" placeholder="Enter section">
         <option value="">Calculating...</option>
-        <option value="ممتاز" style="color: goldenrod;">ممتاز</option>
-        <option value="جيد جدا" style="color: green;">جيد جدأ</option>
-        <option value="جيد" style="color: plum;">جيد</option>
-        <option value="متوسط"  style="color: aqua;">متوسط</option>
-        <option value="مقبول" style="color: silver;">مقبول</option>
-        <option value="ضعيف" style="color: maroon;">ضعيف</option>
+        <option value="ممتاز" style="color: goldenrod;">Outstanding (80-100)</option>
+        <option value="جيد جدا" style="color: green;">Excellent (70-79)</option>
+        <option value="جيد" style="color: plum;">Good (60-69)</option>
+        <option value="متوسط"  style="color: aqua;">Average (50-59)</option>
+        <option value="مقبول" style="color: silver;">Below Average	 (40-49)</option>
+        <option value="ضعيف" style="color: maroon;">Poor (33-39)</option>
       </select>
     </div>
     
@@ -171,7 +171,7 @@
       }).then(canvas => {
         canvas.toBlob(blob => {
           const link = document.createElement('a');
-          link.download = `${codeInput.value || 'preview'}-${nameInput.value || 'studnet name'}-PR.jpeg`;
+          link.download = `${codeInput.value || 'preview'}-${nameInput.value || 'studnet name'}-pr-24.jpeg`;
           link.href = URL.createObjectURL(blob);
           link.click();
           
