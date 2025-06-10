@@ -149,7 +149,20 @@
     }
 
     function setOrientation(orientation) {
+      
       document.body.className = orientation;
+
+      document.querySelectorAll('.orientation-buttons button').forEach(btn => {
+        btn.classList.remove('selected');
+      });
+
+      // Add 'selected' to the clicked button based on orientation name
+      const selectedBtn = Array.from(document.querySelectorAll('.orientation-buttons button'))
+        .find(btn => btn.textContent.trim().toLowerCase().includes(orientation));
+
+      if (selectedBtn) {
+        selectedBtn.classList.add('selected');
+      }
     }
 
     function downloadPreview() {
