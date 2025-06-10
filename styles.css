@@ -205,7 +205,7 @@
 /* Portrait Image Container */
 .portrait .preview-image {
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
   aspect-ratio: 3 / 4; /* 3:4 = portrait */
   position: relative;
   background: url('/frame-portrait.png') center center no-repeat;
@@ -217,7 +217,7 @@
 /* Landscape Image Container */
 .landscape .preview-image {
   width: 100%;
-  max-width: 700px;   /* Slightly smaller than full width */
+  max-width: 820px;   /* Slightly smaller than full width */
   aspect-ratio: 4 / 3;
   padding: 18px;       /* Inner padding to not overflow */
   margin: auto;
