@@ -173,6 +173,35 @@
   font-weight: 500;
 }
 
+/* Portrait: Keep info in vertical column */
+.portrait .preview-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Landscape: Arrange info in two columns (code/class right, name/section left) */
+.landscape .preview-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 30px; /* row-gap, column-gap */
+  direction: rtl;
+  text-align: right;
+  padding-inline: 20px;
+}
+
+.landscape .preview-info > div:nth-child(1), /* code */
+.landscape .preview-info > div:nth-child(3)  /* class */
+{
+  grid-column: 1;
+}
+
+.landscape .preview-info > div:nth-child(2), /* name */
+.landscape .preview-info > div:nth-child(4)  /* section */
+{
+  grid-column: 2;
+}
+
 /* Shared Preview Container Base */
 #preview {
   background: white;
@@ -205,7 +234,7 @@
 /* Portrait Image Container */
 .portrait .preview-image {
   width: 100%;
-  max-width: 700px;
+  max-width: 680px;
   aspect-ratio: 3 / 4; /* 3:4 = portrait */
   position: relative;
   background: url('/frame-portrait.png') center center no-repeat;
@@ -217,7 +246,7 @@
 /* Landscape Image Container */
 .landscape .preview-image {
   width: 100%;
-  max-width: 820px;   /* Slightly smaller than full width */
+  max-width: 900px;   /* Slightly smaller than full width */
   aspect-ratio: 4 / 3;
   padding: 18px;       /* Inner padding to not overflow */
   margin: auto;
