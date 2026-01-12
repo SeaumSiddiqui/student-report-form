@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student ID Form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body class="portrait">
+
+  <div class="form-section">
+    <h2><i class="fas fa-user-graduate"></i>Details</h2>
+    
+    <div class="form-group">
+      <label for="code"><i class="fas fa-id-card"></i> Student Code</label>
+      <input type="text" id="code" placeholder="Enter student code">
+    </div>
+    
+    <div class="form-group">
+      <label for="name"><i class="fas fa-signature"></i> Student Name</label>
+      <input type="text" id="name" readonly placeholder="Will appear here">
+    </div>
+    
+    <div class="form-group">
+      <label for="class"><i class="fas fa-school"></i> Class</label>
+      <select type="text" id="class" placeholder="Enter class">
+        <option value="">Select</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="section"><i class="fas fa-users"></i> Section</label>
+      <select type="text" id="section" placeholder="Enter section">
+        <option value="">Calculating...</option>
+        <option value="ممتاز" style="color: goldenrod;">Outstanding (80-100) A+</option>
+        <option value="جيد جدا" style="color: green;">Excellent (70-79) A</option>
+        <option value="جيد" style="color: plum;">Good (60-69) A-</option>
+        <option value="متوسط"  style="color: aqua;">Average (50-59) B</option>
+        <option value="مقبول" style="color: silver;">Below Average	 (33-49) C</option>
+        <option value="راسب" style="color: maroon;">Fail (0-32) F</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label><i class="fas fa-camera"></i> Upload Photo</label>
+      <div class="file-upload">
+        <label class="file-upload-label">
+          <i class="fas fa-cloud-upload-alt"></i> Select or Drop
+          <input type="file" id="imageUpload" accept="image/*">
+        </label>
+      </div>
+    </div>
+    
+    <div class="buttons">
+      <button class="refresh-btn" onclick="refreshForm()">
+        <i class="fas fa-sync-alt"></i> Refresh
+      </button>
+      <button class="download-btn" onclick="downloadPreview()">
+        <i class="fas fa-download"></i> Download
+      </button>
+    </div>
+  </div>
+
+  <div class="preview-section">
+    <div class="preview-header">
+      <h2><i class="fas fa-file-alt"></i> Preview</h2>
+      <div class="orientation-buttons">
+        <button onclick="setOrientation('portrait')">
+          <i class="fas fa-portrait"></i> Portrait
+        </button>
+        <button onclick="setOrientation('landscape')">
+          <i class="fas fa-landscape"></i> Landscape
+        </button>
+      </div>
+    </div>
+
+    <div class="preview-content">
+      <div id="preview">
+        <div class="preview-info" id="previewText"></div>
+        <div class="preview-image">
+          <img id="previewImage" src="./assets/placeholder.svg" alt="Preview Image">
+          <div class="frame-overlay"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="studentData.js"></script>
+  <script>
+    const codeInput = document.getElementById('code');
+    const nameInput = document.getElementById('name');
+    const classInput = document.getElementById('class');
+    const sectionInput = document.getElementById('section');
+    const imageInput = document.getElementById('imageUpload');
+    const previewText = document.getElementById('previewText');
+    const previewImage = document.getElementById('previewImage');
+
+    codeInput.addEventListener('input', () => {
+      const name = studentData[codeInput.value] || '';
+      nameInput.value = name;
+      updatePreview();
+    });
+
+    [classInput, sectionInput].forEach(input => input.addEventListener('input', updatePreview));
+    imageInput.addEventListener('change', () => {
+      const file = imageInput.files[0];
+      if (!file) return;
+      
+      const reader = new FileReader();
+      reader.onload = () => {
+        previewImage.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    function updatePreview() {
+      previewText.innerHTML = `
+        <div>الكود: <span class="val" id="previewCode">${codeInput.value || 'N/A'}</span></div>
+        <div>الاسم: <span class="val" id="previewName">${nameInput.value || 'Not found'}</span></div>
+        <div>الصف: <span class="val" id="previewClass">${classInput.value || 'Not provided'}</span></div>
+        <div>التقدير: <span class="val" id="previewSection">${sectionInput.value || 'Not provided'}</span></div>
+      `;
+    }
+
+    function refreshForm() {
+      codeInput.value = '';
+      nameInput.value = '';
+      classInput.value = '';
+      sectionInput.value = '';
+      imageInput.value = '';
+      previewImage.src = './assets/placeholder.svg';
+
+      // Clear values only, preserve labels
+      document.getElementById('previewCode').textContent = 'N/A';
+      document.getElementById('previewName').textContent = 'Not found';
+      document.getElementById('previewClass').textContent = 'Not provided';
+      document.getElementById('previewSection').textContent = 'Not provided';
+    }
+
+    function setOrientation(orientation) {
+      
+      document.body.className = orientation;
+
+      document.querySelectorAll('.orientation-buttons button').forEach(btn => {
+        btn.classList.remove('selected');
+      });
+
+      // Add 'selected' to the clicked button based on orientation name
+      const selectedBtn = Array.from(document.querySelectorAll('.orientation-buttons button'))
+        .find(btn => btn.textContent.trim().toLowerCase().includes(orientation));
+
+      if (selectedBtn) {
+        selectedBtn.classList.add('selected');
+      }
+    }
+
+    function downloadPreview() {
+      if (!html2canvas) {
+        alert("Please wait for the libraries to load completely");
+        return;
+      }
+      
+      // Show loading indicator
+      const downloadBtn = document.querySelector('.download-btn');
+      const originalHtml = downloadBtn.innerHTML;
+      downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+      downloadBtn.disabled = true;
+      
+      html2canvas(document.getElementById('preview'), {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: "#FFFFFF"
+      }).then(canvas => {
+        canvas.toBlob(blob => {
+          const link = document.createElement('a');
+          link.download = `${codeInput.value || 'preview'}-${nameInput.value || 'studnet name'}-PR-24.jpeg`;
+          link.href = URL.createObjectURL(blob);
+          link.click();
+          
+          // Restore button
+          downloadBtn.innerHTML = originalHtml;
+          downloadBtn.disabled = false;
+        }, 'image/jpeg', 0.95);
+      });
+    }
+
+    // Initialize preview
+    updatePreview();
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+    "notebook.output.minimalErrorRendering": false,
+
+    "[javascript]": {
+        "editor.formatOnSave": false,
+        "editor.formatOnPaste": false
+    },
+    "editor.bidiEnabled": false 
+}
