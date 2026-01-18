@@ -184,7 +184,7 @@
       }).then(canvas => {
         canvas.toBlob(blob => {
           const link = document.createElement('a');
-          link.download = `${codeInput.value || 'preview'}-${nameInput.value || 'studnet name'}-PR-24.jpeg`;
+          link.download = `${codeInput.value || 'preview'}-${nameInput.value || 'studnet name'}-PR-25.jpeg`;
           link.href = URL.createObjectURL(blob);
           link.click();
           
