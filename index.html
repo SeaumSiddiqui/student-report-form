@@ -165,35 +165,80 @@
       }
     }
 
-    function downloadPreview() {
-      if (!html2canvas) {
-        alert("Please wait for the libraries to load completely");
-        return;
-      }
+    // function downloadPreview() {
+    //   if (!html2canvas) {
+    //     alert("Please wait for the libraries to load completely");
+    //     return;
+    //   }
       
-      // Show loading indicator
-      const downloadBtn = document.querySelector('.download-btn');
-      const originalHtml = downloadBtn.innerHTML;
-      downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-      downloadBtn.disabled = true;
+    //   // Show loading indicator
+    //   const downloadBtn = document.querySelector('.download-btn');
+    //   const originalHtml = downloadBtn.innerHTML;
+    //   downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+    //   downloadBtn.disabled = true;
       
-      html2canvas(document.getElementById('preview'), {
-        scale: 2,
-        useCORS: true,
-        backgroundColor: "#FFFFFF"
-      }).then(canvas => {
-        canvas.toBlob(blob => {
-          const link = document.createElement('a');
-          link.download = `${codeInput.value || 'preview'}-${nameInput.value || 'studnet name'}-PR-25.jpeg`;
-          link.href = URL.createObjectURL(blob);
-          link.click();
+    //   html2canvas(document.getElementById('preview'), {
+    //     scale: 2,
+    //     useCORS: true,
+    //     backgroundColor: "#FFFFFF"
+    //   }).then(canvas => {
+    //     canvas.toBlob(blob => {
+    //       const link = document.createElement('a');
+    //       link.download = `${codeInput.value || 'preview'}-${nameInput.value || 'studnet name'}-PR-25.jpeg`;
+    //       link.href = URL.createObjectURL(blob);
+    //       link.click();
           
-          // Restore button
-          downloadBtn.innerHTML = originalHtml;
-          downloadBtn.disabled = false;
-        }, 'image/jpeg', 0.95);
-      });
-    }
+    //       // Restore button
+    //       downloadBtn.innerHTML = originalHtml;
+    //       downloadBtn.disabled = false;
+    //     }, 'image/jpeg', 0.95);
+    //   });
+    // }
+
+
+      function downloadPreview() {
+        if (!window.html2canvas) {
+          alert("Please wait for the libraries to load completely");
+          return;
+        }
+    
+        const MAX_SIZE = 1024 * 1024; // 1MB
+        const downloadBtn = document.querySelector('.download-btn');
+        const originalHtml = downloadBtn.innerHTML;
+    
+        downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+        downloadBtn.disabled = true;
+    
+        html2canvas(document.getElementById('preview'), {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: "#FFFFFF"
+        }).then(canvas => {
+    
+          let quality = 0.9;
+    
+          function compressAndDownload() {
+            canvas.toBlob(blob => {
+    
+              if (blob.size <= MAX_SIZE || quality <= 0.4) {
+                const link = document.createElement('a');
+                link.download = `${codeInput.value || 'preview'}-${nameInput.value || 'student'}-PR-25.jpg`;
+                link.href = URL.createObjectURL(blob);
+                link.click();
+    
+                downloadBtn.innerHTML = originalHtml;
+                downloadBtn.disabled = false;
+              } else {
+                quality -= 0.05;
+                compressAndDownload();
+              }
+    
+            }, 'image/jpeg', quality);
+          }
+    
+          compressAndDownload();
+        });
+      }
 
     // Initialize preview
     updatePreview();
